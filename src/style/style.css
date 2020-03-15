@@ -1,0 +1,19 @@
+#root {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+}
+
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  width: 30em;
+  height: 30em;
+}
+
+.square {
+  width: 33%;
+  height: 33%;
+  font-size: 4em;
+}
