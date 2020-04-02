@@ -4,12 +4,12 @@ import Square from './square';
 class Game extends Component {
   state = {
     squares: Array(9).fill().map(() => null),
+    counter: 0,
     xTurn: true,
     winner: null
   }
 
   render() {
-
     return (
       <Fragment>
         {this.createHeader()}
@@ -21,10 +21,12 @@ class Game extends Component {
   }
 
   createHeader() {
-    const { xTurn, winner } = this.state;
+    const { xTurn, winner, counter } = this.state;
 
     if (winner) {
       return <h4>{winner} wins!</h4>;
+    } else if (counter === 9) {
+      return <h4>It's a Draw!</h4>;
     } else {
       return <h4>{xTurn ? 'X' : 'O'}'s turn</h4>;
     }
@@ -45,17 +47,18 @@ class Game extends Component {
 
 
   handleSquareClick = (index) => {
-    let { xTurn, squares, winner } = this.state;
+    let { xTurn, squares, winner, counter } = this.state;
 
     if (squares[index] || winner) return;
 
     const value = xTurn ? 'X' : 'O';
     xTurn = !xTurn;
+    counter++;
 
     squares = squares.slice();
     squares[index] = value;
 
-    this.setState({ squares, xTurn }, () => this.validateBoard(value));
+    this.setState({ squares, xTurn, counter }, () => this.validateBoard(value));
   }
 
   validateBoard = (value) => {
